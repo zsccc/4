@@ -79,7 +79,7 @@ void ThreadPool::ThreadFunc()
             std::unique_lock<std::mutex> lock(mutex_);//unique_lock支持解锁又上锁情况
             while(taskqueue_.empty() && started_)
             {
-                condition_.wait(lock);
+                condition_.wait(lock);//线程被阻塞,锁被释放掉,然后等待条件变量唤醒.
             }
             if(!started_)
             {
